@@ -1,10 +1,10 @@
 import fetch from 'node-fetch';
 import * as cheerio from "cheerio";
-import * as urlParser from 'url';
 
+const MAX_DEPTH = 3;
 
 const getUrl = (link) => {
-    if(link.includes("http")) { // if its a relative link
+    if(link.includes("http")) { 
         return link;
     } 
 };
@@ -14,12 +14,12 @@ const crawl = async ({ url }) => {
 
     const response = await fetch(url)
     const html = await response.text();
-    console.log("html", html);
+    // console.log("html", html);
     const $ = cheerio.load(html)
    
-
+    
     const imageUrls = $("img")
-    .map((i, link) => link.attribs.src)
+    .map((link) => link.attribs.src)
     .get();
 
     imageUrls.forEach(imageUrl => {
@@ -27,11 +27,12 @@ const crawl = async ({ url }) => {
     });
 
     const results = JSON.stringify(imageUrls)
-    console.log("images", imageUrls)
+    console.log(results)
+    // console.log("images", imageUrls)
 };
 
     crawl({
-        url: "http://localhost:5500",
+        url: "http://ynet.com",
     });
     
 
