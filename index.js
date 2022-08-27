@@ -28,7 +28,7 @@ const crawl = async ({ url }) => {
 
     const results = JSON.stringify(imageUrls)
     console.log(results)
-    // console.log("images", imageUrls)
+    console.log("images", imageUrls)
 };
 
     crawl({
